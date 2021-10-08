@@ -53,7 +53,7 @@ public class Controller {
     boolean pressSwitch;
     boolean loop;
 
-    boolean hold(boolean press) {
+    boolean press(boolean press) {
         if(press && loop) {
             if(pressSwitch) {
                 loop = false;
@@ -69,12 +69,15 @@ public class Controller {
         this.loop = loop;
         return pressSwitch;
     }
+    public static <T> T hold(T hold) {
+        return hold;
+    }
 
 
     //Gamepad gamepad1, Gamepad gamepad2
     static void keyBind(LinearOpMode opmode, Controller Back) {
         //opmode.telemetry.clear();
-        if(Back.hold(opmode.gamepad1.back)) {
+        if(Back.press(opmode.gamepad1.back)) {
             /*
             opmode.telemetry.addData("Move Forward: ", LeftStickY);
             opmode.telemetry.addData("Move Sideways: ", LeftStickX);
