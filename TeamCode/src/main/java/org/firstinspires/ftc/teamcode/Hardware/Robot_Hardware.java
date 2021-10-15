@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -15,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Rotation;
  *  @Author [Protosurge8626]
  *  @Beta [All names and variables are temporary]
  * */
-public class Robot_Hardware extends LinearOpMode {
+public class Robot_Hardware extends Linear_OpMode_Handler {
 
 	//Initializes all of the robot objects
 	public static DcMotor[] Motors = new DcMotor[4];
@@ -51,11 +50,6 @@ public class Robot_Hardware extends LinearOpMode {
 
 	//Compile inside of any of the RunOpMode
 	public void InitializeRunMode(){
-		/*  Motors  */
-		Motors[0] = hardwareMap.get(DcMotor.class, "RightFront");
-		Motors[1] = hardwareMap.get(DcMotor.class, "RightRear");
-		Motors[2] = hardwareMap.get(DcMotor.class, "LeftFront");
-		Motors[3] = hardwareMap.get(DcMotor.class, "LeftRear");
 		/*  Servos  */
 		Servos[0] = hardwareMap.get(Servo.class, "LeftArm");
 		Servos[1] = hardwareMap.get(Servo.class, "RightArm");
