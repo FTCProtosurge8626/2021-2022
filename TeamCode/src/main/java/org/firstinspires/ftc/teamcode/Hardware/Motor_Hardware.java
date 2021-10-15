@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware.Motors;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class Motor_Hardware extends CustomLinearOpMode {
+public class Motor_Hardware extends LinearOpMode_Handler {
 	public static void InitMotors() {
 		//Sets the Motor names on the phone
 		Motors[0] = hardwareMap.get(DcMotor.class, "RightFront");
