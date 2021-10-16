@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Controller {
     //Instantiates arrays for the Gamepad inputs
-    double[] stick = new double[4];
+    double[][] stick = new double[2][2];
     double[] trigger = new double[2];
 
     boolean[] button = new boolean[4];
@@ -18,17 +18,19 @@ public class Controller {
 
     /*
         //Adds both Gamepad inputs
-        private static <T> Gamepad controls(T input){
+        private static <T> Gamepad controls(LinearOpMode opmode){
+            gamepad1 = opmode.gamepad1;
+            gamepad2 = opmode.gamepad2;
             return gamepad1.input + gamepad2.input;
         }
     */
 
     //Sets the Gamepad inputs
     public Controller (LinearOpMode opmode){
-        stick[0] = opmode.gamepad1.left_stick_x;
-        stick[2] = opmode.gamepad1.left_stick_y;
-        stick[3] = opmode.gamepad1.right_stick_x;
-        stick[4] = opmode.gamepad1.right_stick_y;
+        stick[0][0] = opmode.gamepad1.left_stick_x;
+        stick[0][1] = opmode.gamepad1.left_stick_y;
+        stick[1][0] = opmode.gamepad1.right_stick_x;
+        stick[1][1] = opmode.gamepad1.right_stick_y;
 
         trigger[0] = opmode.gamepad1.right_trigger;
         trigger[1] = opmode.gamepad1.left_trigger;

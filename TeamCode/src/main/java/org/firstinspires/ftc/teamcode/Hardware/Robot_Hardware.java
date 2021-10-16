@@ -1,77 +1,51 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Rotation;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Hardware.ClassHardware.IMU_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.ClassHardware.Motor_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.ClassHardware.Servo_Hardware;
+
 /**
- *  @Author [Protosurge8626]
- *  @Beta [All names and variables are temporary]
+ *  @Author [Marcus Turley]
  * */
-public class Robot_Hardware extends LinearOpMode {
+public class Robot_Hardware extends LinearOpMode_Handler {
 
-	//Initializes all of the robot objects
-	public static DcMotor[] Motors = new DcMotor[4];
-	public static Servo[] Servos = new Servo[2];
-	public static CRServo[] CRServos = new CRServo[2];
+	public enum RunMode {
+		TeleOp,
+		Autonomous,
+	}
 
-	// The IMU sensor object
-	public static BNO055IMU IMU;
+	public static HardwareMap HMap;
+	public static Telemetry Print;
 
-	//Compile inside of the RunOpMode Autonomous
-	public void Autonomous(){
-		InitializeRunMode();
+	//Creates an new RunMode Object
+	private static RunMode runMode = RunMode.TeleOp;
+
+	//Compiles inside of the RunOpMode Autonomous
+	public void InitAutonomous(){
+		HMap = hardwareMap;
+		Print = telemetry;
+
+		runMode = RunMode.Autonomous;
 		/*  Motors  */
-		Motor_Hardware.runEncoder();
-		Motor_Hardware.InitMotors();
+		Motor_Hardware.InitMotors(runMode);
 		/*  Servos  */
-		Servo_Hardware.InitServosAutonomous();
+		Servo_Hardware.InitServos(runMode);
 		/*  Sensors  */
-		IMU_Hardware.InitIMU();
+		IMU_Hardware.InitIMU(runMode);
 	}
 
-	//Compile inside of the RunOpMode TeleOp
-	public void TeleOp(){
-		InitializeRunMode();
+	//Compiles inside of the RunOpMode TeleOp
+	public void InitTeleOp(){
+		runMode = RunMode.TeleOp;
 		/*  Motors  */
-		Motor_Hardware.runWithoutEncoder();
-		Motor_Hardware.InitMotors();
+		Motor_Hardware.InitMotors(runMode);
 		/*  Servos  */
-		Servo_Hardware.InitServosTeleOp();
+		Servo_Hardware.InitServos(runMode);
 		/*  Sensors  */
-		IMU_Hardware.InitIMU();
+		IMU_Hardware.InitIMU(runMode);
 	}
-
-	//Compile inside of any of the RunOpMode
-	public void InitializeRunMode(){
-		/*  Motors  */
-		Motors[0] = hardwareMap.get(DcMotor.class, "RightFront");
-		Motors[1] = hardwareMap.get(DcMotor.class, "RightRear");
-		Motors[2] = hardwareMap.get(DcMotor.class, "LeftFront");
-		Motors[3] = hardwareMap.get(DcMotor.class, "LeftRear");
-		/*  Servos  */
-		Servos[0] = hardwareMap.get(Servo.class, "LeftArm");
-		Servos[1] = hardwareMap.get(Servo.class, "RightArm");
-
-		Servos[0].setDirection(Servo.Direction.FORWARD);
-		Servos[1].setDirection(Servo.Direction.FORWARD);
-		/*  CRServos  */
-		CRServos[0] = hardwareMap.get(CRServo.class, "LeftShooter");
-		CRServos[1] = hardwareMap.get(CRServo.class, "RightShooter");
-
-		CRServos[0].setDirection(CRServo.Direction.FORWARD);
-		CRServos[1].setDirection(CRServo.Direction.FORWARD);
-		/*  Sensors */
-		IMU = hardwareMap.get(BNO055IMU.class, "IMU");
-	}
-
-	@Override
-	public void runOpMode() throws InterruptedException { }
 }

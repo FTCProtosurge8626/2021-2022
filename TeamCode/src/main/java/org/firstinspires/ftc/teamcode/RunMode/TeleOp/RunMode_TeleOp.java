@@ -1,15 +1,17 @@
 package org.firstinspires.ftc.teamcode.RunMode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Hardware.IMU_Hardware;
-
+/**
+ *  @Author [Marcus Turley]
+ * */
 @TeleOp(name = "Run: RunModeTeleOp", group = "TeleOP")
-public class RunMode_TeleOp extends TeleOp_Methods {
-
+public class RunMode_TeleOp extends Robot_Hardware {
 	@Override
 	public void runOpMode() {
-		TeleOp();
+		InitTeleOp();
 
 		waitForStart();
 		while (opModeIsActive() && !isStopRequested()) {

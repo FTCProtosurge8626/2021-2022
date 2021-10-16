@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.RunMode.TeleOp;
-import org.firstinspires.ftc.teamcode.Hardware.IMU_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.ClassHardware.IMU_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware;
 
 public class TeleOp_Methods extends Robot_Hardware {
