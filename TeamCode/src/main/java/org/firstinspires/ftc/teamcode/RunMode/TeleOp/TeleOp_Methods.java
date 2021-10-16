@@ -1,38 +1,52 @@
 package org.firstinspires.ftc.teamcode.RunMode.TeleOp;
-import org.firstinspires.ftc.teamcode.Hardware.ClassHardware.IMU_Hardware;
+
+import static org.firstinspires.ftc.teamcode.Hardware.ClassHardware.IMU_Hardware.*;
+import static org.firstinspires.ftc.teamcode.Hardware.ClassHardware.Motor_Hardware.*;
+import static org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware.DriveMode.*;
+
 import org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware;
 
 public class TeleOp_Methods extends Robot_Hardware {
 
-	public static void movePower(double FLPower, double FRPower, double BLPower, double BRPower) {
-		Motors[0].setPower(FLPower);
-		Motors[1].setPower(FRPower);
-		Motors[2].setPower(BLPower);
-		Motors[3].setPower(BRPower);
+	private static double[] powers = new double[4];
+
+	public static void move(double forward, double horizontal, double rotational) {
+		switch(driveMode) {
+			case Tank:
+				powers[0] = forward + rotational;
+				powers[1] = forward - rotational;
+				powers[2] = forward + rotational;
+				powers[3] = forward - rotational;
+				break;
+			case Arcade:
+				powers[0] = forward - horizontal + rotational;
+				powers[1] = forward + horizontal - rotational;
+				powers[2] = forward + horizontal + rotational;
+				powers[3] = forward - horizontal - rotational;
+				break;
+			case Custom:
+				break;
+			default:
+				break;
+		}
+
+		SetPowers(Motors, powers);
+
 	}
 
-	static double moveTarget;
-	static double moveTurn;
+	private static double error;
 
-	static void move(double forward, double sideways, double rotation, boolean inverse) {
+	public static void moveHeading(double forward, double horizontal, double rotational) {
 
-		double FLPower = forward - sideways + rotation;
-		double FRPower = forward + sideways - rotation;
-		double BLPower = forward + sideways + rotation;
-		double BRPower = forward - sideways - rotation;
+		if(rotational != 0) {
+			SetTargetHeading(getTargetHeading());
+		} else if(forward != 0 || horizontal != 0){
 
-		movePower(FLPower, FRPower, BLPower, BRPower);
+		}
 
-	}
+		error = getHeadingError(getTargetHeading()) * 0.05;
 
-	static void moveReorient(double forward, double sideways, double rotation, boolean inverse) {
-
-		if(rotation != 0)
-			moveTarget = IMU_Hardware.getHeading();
-
-		moveTurn = (IMU_Hardware.getHeading() - moveTarget) * .1;
-
-		move(forward, sideways, moveTurn + rotation, inverse);
+		move(forward, horizontal, error + rotational);
 
 	}
 

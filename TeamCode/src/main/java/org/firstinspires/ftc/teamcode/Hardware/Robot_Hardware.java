@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import static org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware.DriveMode.Arcade;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -18,14 +19,21 @@ public class Robot_Hardware extends LinearOpMode_Handler {
 		Autonomous,
 	}
 
+	public enum DriveMode {
+		Tank,
+		Arcade,
+		Custom
+	}
+
 	public static HardwareMap HMap;
 	public static Telemetry Print;
 
-	//Creates an new RunMode Object
-	private static RunMode runMode = RunMode.TeleOp;
+	//Creates new RunMode and DriveMode Objects
+	protected static RunMode runMode = RunMode.TeleOp;
+	protected static DriveMode driveMode = Arcade;
 
 	//Compiles inside of the RunOpMode Autonomous
-	public void InitAutonomous(){
+	protected void InitAutonomous(){
 		HMap = hardwareMap;
 		Print = telemetry;
 
@@ -39,7 +47,8 @@ public class Robot_Hardware extends LinearOpMode_Handler {
 	}
 
 	//Compiles inside of the RunOpMode TeleOp
-	public void InitTeleOp(){
+	protected void InitTeleOp(DriveMode newDriveMode){
+		driveMode = newDriveMode;
 		runMode = RunMode.TeleOp;
 		/*  Motors  */
 		Motor_Hardware.InitMotors(runMode);
