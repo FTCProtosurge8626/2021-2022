@@ -34,20 +34,20 @@ public class TeleOp_Methods extends Robot_Hardware {
 
 	}
 
-	private static double error;
-
 	public static void moveHeading(double forward, double horizontal, double rotational) {
 
 		if(rotational != 0) {
 			SetTargetHeading(getTargetHeading());
-		} else if(forward != 0 || horizontal != 0){
-
 		}
 
-		error = getHeadingError(getTargetHeading()) * 0.05;
+		double error = getHeadingError(getTargetHeading()) * 0.05;
 
-		move(forward, horizontal, error + rotational);
+		if(forward == 0 || horizontal == 0){
+			move(forward, horizontal, error + rotational);
+		}
 
 	}
+
+
 
 }
