@@ -75,6 +75,7 @@ public class Controller {
         }
     }
 
+    //Sets the sticks to run under certain conditions
     public double[][] conditionSticks() {
         for(int i = 0, j = 0; i < sticks.length/2; i++, j++) {
             if(sticks[i - j * 2][j] > stickDeadband) {
