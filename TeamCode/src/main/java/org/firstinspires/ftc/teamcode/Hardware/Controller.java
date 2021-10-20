@@ -20,8 +20,10 @@ public class Controller extends LinearOpMode {
 	public Controller (Gamepad Gamepad, double newStickDeadband) {
 		sticks[0][0] = Gamepad.left_stick_x;
 		sticks[0][1] = Gamepad.left_stick_y;
+		sticks[0][2] = Gamepad.left_stick_button;
 		sticks[1][0] = Gamepad.right_stick_x;
 		sticks[1][1] = Gamepad.right_stick_y;
+		sticks[1][2] = Gamepad.right_stick_button;
 		
 		triggers[0] = Gamepad.right_trigger;
 		triggers[1] = Gamepad.left_trigger;
@@ -50,8 +52,10 @@ public class Controller extends LinearOpMode {
         	for(Controller Gpad : Gamepads) {
 			sticks[0][0] += Gpad.sticks[0][0];
 			sticks[0][1] += Gpad.sticks[0][1];
+			sticks[0][2] += Gpad.sticks[0][2];
 			sticks[1][0] += Gpad.sticks[1][0];
 			sticks[1][1] += Gpad.sticks[1][1];
+			sticks[1][2] += Gpad.sticks[1][2];
 			
 			triggers[0] += Gpad.triggers[0];
 			triggers[1] += Gpad.triggers[1];
