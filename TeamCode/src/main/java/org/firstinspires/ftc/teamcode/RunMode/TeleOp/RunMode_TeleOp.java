@@ -26,7 +26,7 @@ public class RunMode_TeleOp extends Robot_Hardware {
 
 			}
 
-			moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0]);
+			moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0],  Gpads.sticks[0][3], press(Gpads.sticks[1][3]));
 		}
 	}
 
