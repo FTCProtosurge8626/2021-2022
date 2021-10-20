@@ -25,7 +25,7 @@ public class RunMode_TeleOp extends Robot_Hardware {
 			if(Rollover(Gpads.sticks[0][0], Gpads.bumpers[0])) {
 
 			}
-
+			PointCompass(Gpads.hatSticks);
 			moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0],  Gpads.sticks[0][3], press(Gpads.sticks[1][3]));
 		}
 	}
