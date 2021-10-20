@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
+import static org.firstinspires.ftc.teamcode.Framework.Convert.*;
 
 public class Controller extends LinearOpMode {
 
@@ -107,17 +108,9 @@ public class Controller extends LinearOpMode {
         return pressSwitch;
     }*/
 
-		//Used inside the press and checks if the inpus has occured. Acts as a delegate.
-		private boolean inputEvent;
-    //Forces the hold input to be converted to a press input
-    boolean press(boolean input) {
-			if(input && inputEvent){
-				inputEvent = false;
-				return true;
-			} else {
-				inputEvent = true;
-			}
-			return false;
+    //An easier way to reference the toEvent Method for controller inputs
+    public boolean press(boolean input) {
+	    toEvent(input);
     }
     
     //Persists the input for a set amount of time
