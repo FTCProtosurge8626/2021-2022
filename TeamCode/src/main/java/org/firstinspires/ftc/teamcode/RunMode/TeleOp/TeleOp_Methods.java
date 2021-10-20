@@ -41,17 +41,62 @@ public class TeleOp_Methods extends Robot_Hardware {
 		SetPowers(Motors, powers);
 	}
 
-	public static void moveHeading(double forward, double horizontal, double rotational, boolean pauseHeading, boolean correctHeading) {
+	public static void moveHeading(double forward, double horizontal, double rotational, boolean haultHeading,  boolean lockedHaultHeading) {
 		if(rotational != 0) {
-			SetTargetHeading(getTargetHeading());
+			SetTargetHeading(getCurrentHeading());
 		}
 		
-		double error = normalize(getHeadingError(getTargetHeading()),-180,180);
+		double error = normalize(getHeadingError(getTargetHeading()), getheadingMin(), getheadingMax());
 
 		move(forward, horizontal, error + rotational);
 		
-		if(pauseHeading){
+		if(haultHeading || lockedHaultHeading){
 			move(forward, horizontal, rotational);
 		}
+	}
+	
+	private static void SetDirection(double dir) {
+		SetTargetHeading(dir);
+	}
+	
+	public static OrientCompass() {
+		switch(compass) {
+			case Compass.NORTH:
+				SetDirection(0);
+				break;
+			case Compass.SOUTH:
+				SetDirection(90);
+				break;
+			case Compass.EAST:
+				SetDirection(180);
+				break;
+			case Compass.WEST:
+				SetDirection(270);
+				break;
+			default:
+				compass = NONE;
+				break;
+		}
+	}
+	
+	public static void PointCompass(boolean[] direction){
+		switch(true) {
+			case direction[0]:
+				compass = Compass.NORTH;
+				break;
+			case direction[1]:
+				compass = Compass.SOUTH;
+				break;
+			case direction[2]:
+				compass = Compass.EAST;
+				break;
+			case direction[3]:
+				compass = Compass.WEST;
+				break;
+			default:
+				compass = NONE;
+				break;
+		}
+		OrientCompass();
 	}
 }
