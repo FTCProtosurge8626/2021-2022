@@ -11,6 +11,19 @@ public class Convert {
 		return input ? 1 : 0;
 	}
 	
+	//Used inside the toEvent and checks if the inpus has occured. Acts as a Event.
+	private boolean inputEvent;
+	//Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
+	public boolean toEvent(boolean input) {
+		if(input && inputEvent){
+			inputEvent = false;
+			return true;
+		} else {
+			inputEvent = true;
+		}
+		return false;
+	}
+	
 	//Converts the value to the normalized value
 	public double normalize(double value, double min, double max) {
     		return (value - min) / (max - min);
