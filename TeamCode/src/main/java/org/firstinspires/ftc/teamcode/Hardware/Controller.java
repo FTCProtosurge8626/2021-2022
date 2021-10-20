@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class Controller {
+public class Controller extends LinearOpMode {
 
     //Instantiates arrays for the Gamepad inputs
     public double[][] sticks = new double[2][2];
@@ -84,10 +84,12 @@ public class Controller {
         }
         return new double[][] { {0,0}, {0,0} };
     }
-
+	
+		/*
     boolean pressSwitch;
     boolean loop;
 
+    //Forces the hold input to be converted to a press input
     boolean press(boolean press) {
         if(press && loop) {
             if(pressSwitch) {
@@ -103,6 +105,28 @@ public class Controller {
         this.pressSwitch = pressSwitch;
         this.loop = loop;
         return pressSwitch;
+    }*/
+
+		//Used inside the press and checks if the inpus has occured. Acts as a delegate.
+		private boolean inputEvent;
+    //Forces the hold input to be converted to a press input
+    boolean press(boolean input) {
+			if(input && inputEvent){
+				inputEvent = false;
+				return true;
+			} else {
+				inputEvent = true;
+			}
+			return false;
+    }
+    
+    //Persists the input for a set amount of time
+    public boolean persist(boolean input, double time) {
+        if(input == true){
+            return input;
+        }
+        sleep(time);
+        return false;
     }
 
     //Returns when a combination of inputs have been pressed starting from the first value put into the method
