@@ -11,7 +11,13 @@ public class Convert {
 		return input ? 1 : 0;
 	}
 	
+	//Converts the value to the normalized value
 	public double normalize(double value, double min, double max) {
-    		return 1 - ((value - min) / (max - min));
+    		return (value - min) / (max - min);
+	}
+	
+	//Converts the value to the normalized value between a custom range
+	public double normalize(double value, double min, double max, double minRange, double maxRange) {
+    		return (((value - min) / (max - min)) * (maxRange + Math.abs(minRange))) - minRange;
 	}
 }
