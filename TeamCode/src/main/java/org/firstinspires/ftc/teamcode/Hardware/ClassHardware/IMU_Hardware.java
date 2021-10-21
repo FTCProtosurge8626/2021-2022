@@ -24,6 +24,22 @@ public class IMU_Hardware {
 
 	//Creates a variable for the target heading
 	private static double targetHeading;
+	
+	//Creates 2 variables that contain the maximum and minimum range the heading will be between
+	private static double headingMin = 0;
+	private static double headingMax = 360;
+	
+	//Creates an enum that contains diffrent directions 
+	public enum Compass {
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST,
+		NONE
+	}
+	
+	//Creates an instance of the enum Compass
+	private static Compass compass = Compass.North;
 
 	//Initializes the IMU
 	public static void InitIMU(Robot_Hardware.RunMode runMode){
@@ -43,7 +59,7 @@ public class IMU_Hardware {
 	//Gets the IMU's current orientation
 	public static double getCurrentHeading() {
 		IMU_Hardware.angles = IMU.getAngularOrientation();
-		return IMU_Hardware.angles.firstAngle;
+		return normalize(IMU_Hardware.angles.firstAngle, -180, 180, headingMin, headingMax);
 	}
 
 	//Gets the IMU's target orientation
@@ -58,7 +74,16 @@ public class IMU_Hardware {
 
 	//Gets the IMU's distance to target heading
 	public static double getHeadingError(double targetHeading) {
-		IMU_Hardware.angles = IMU.getAngularOrientation();
-		return IMU_Hardware.angles.firstAngle - targetHeading;
+		return getCurrentHeading - targetHeading;
+	}
+
+	//Gets the IMU's heading minimum
+	public static double getHeadingMin() {
+		return headingMin;
+	}
+
+	//Gets the IMU's heading maximum
+	public static double getHeadingMax() {
+		return headingMax;
 	}
 }
