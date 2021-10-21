@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Hardware.LinearOpMode_Handler;
+import org.firstinspires.ftc.teamcode.Framework.LinearOpMode_Handler;
 import org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware;
 
 /**
@@ -73,15 +73,12 @@ public class Motor_Hardware extends LinearOpMode_Handler {
 
 	//Sets all motors powers based on their index
 	public static void SetPowers(DcMotor[] Motors, double... powers) {
-		for(int i = 0; i < powers.length; i++){
-			Motors[i].setPower(powers[i]);
-		}
-	}
+		if(powers.length < Motors.length) {
+			for(int i = 0; i < powers.length; i++) {
+				Motors[i].setPower(powers[i]);
+			}
+		} else {
 
-	//Sets all motors powers based on the length of the array
-	public static void SetPowers(DcMotor[] Motors, int[] indexes, double... powers) {
-		for(int i = 0; i < indexes.length; i++){
-			Motors[indexes[i]].setPower(powers[i]);
 		}
 	}
 }

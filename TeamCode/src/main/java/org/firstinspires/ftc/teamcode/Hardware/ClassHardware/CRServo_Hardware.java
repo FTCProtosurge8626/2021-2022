@@ -45,11 +45,4 @@ public class CRServo_Hardware {
 			CRServos[i].setPower(powers[i]);
 		}
 	}
-
-	//Sets all CRServos power based on the length of the array
-	public static void SetPowers(CRServo[] CRServos, int[] indexes, double... powers) {
-		for(int i = 0; i < indexes.length; i++){
-			CRServos[indexes[i]].setPower(powers[i]);
-		}
-	}
 }

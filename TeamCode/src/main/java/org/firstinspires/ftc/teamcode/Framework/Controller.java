@@ -1,11 +1,16 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.Framework;
 
+
+import static org.firstinspires.ftc.teamcode.Framework.Convert.*;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class Controller {
+public class Controller extends LinearOpMode_Handler {
 
     //Instantiates arrays for the Gamepad inputs
     public double[][] sticks = new double[2][2];
+    public boolean[] sticksButtons = new boolean[1];
     public double[] triggers = new double[2];
 
     public boolean[] buttons = new boolean[4];
@@ -19,8 +24,10 @@ public class Controller {
     public Controller (Gamepad Gamepad, double newStickDeadband) {
         sticks[0][0] = Gamepad.left_stick_x;
         sticks[0][1] = Gamepad.left_stick_y;
+        sticksButtons[0] = Gamepad.left_stick_button;
         sticks[1][0] = Gamepad.right_stick_x;
         sticks[1][1] = Gamepad.right_stick_y;
+        sticksButtons[1] = Gamepad.right_stick_button;
 
         triggers[0] = Gamepad.right_trigger;
         triggers[1] = Gamepad.left_trigger;
@@ -49,8 +56,10 @@ public class Controller {
         for(Controller Gpad : Gamepads) {
             sticks[0][0] += Gpad.sticks[0][0];
             sticks[0][1] += Gpad.sticks[0][1];
+            sticksButtons[0] |= Gpad.sticksButtons[0];
             sticks[1][0] += Gpad.sticks[1][0];
             sticks[1][1] += Gpad.sticks[1][1];
+            sticksButtons[1] |= Gpad.sticksButtons[1];
 
             triggers[0] += Gpad.triggers[0];
             triggers[1] += Gpad.triggers[1];
@@ -85,9 +94,10 @@ public class Controller {
         return new double[][] { {0,0}, {0,0} };
     }
 
+		/*
     boolean pressSwitch;
     boolean loop;
-
+    //Forces the hold input to be converted to a press input
     boolean press(boolean press) {
         if(press && loop) {
             if(pressSwitch) {
@@ -103,6 +113,21 @@ public class Controller {
         this.pressSwitch = pressSwitch;
         this.loop = loop;
         return pressSwitch;
+    }*/
+
+    //An easier way to reference the toEvent Method for controller inputs
+    public boolean press(boolean input) {
+        Convert convert = new Convert();
+        return convert.toEvent(input);
+    }
+
+    //Persists the input for a set amount of time
+    public boolean persist(boolean input, int time) {
+        if(input == true){
+            return input;
+        }
+        sleep(time);
+        return false;
     }
 
     //Returns when a combination of inputs have been pressed starting from the first value put into the method

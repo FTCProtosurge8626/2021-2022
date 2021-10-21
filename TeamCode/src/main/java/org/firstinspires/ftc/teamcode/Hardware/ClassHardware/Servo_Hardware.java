@@ -60,11 +60,4 @@ public class Servo_Hardware {
 			Servos[i].setPosition(positions[i]);
 		}
 	}
-
-	//Sets all Servos positions based on the length of the array
-	public static void SetPositions(Servo[] Servos, int[] indexes, double... positions) {
-		for(int i = 0; i < indexes.length; i++){
-			Servos[indexes[i]].setPosition(positions[i]);
-		}
-	}
 }
