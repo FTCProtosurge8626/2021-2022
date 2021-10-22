@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.FTC_Learning.Samples.TeleOp_Raw;
 
+import static org.firstinspires.ftc.teamcode.Framework.Convert.toEvent;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -34,8 +36,7 @@ public class Motor_Sample_3 extends LinearOpMode {
 	private boolean pressSwitch;
 
 	private void MoveLeftOnPress(boolean input) {
-		Convert convert = new Convert();
-		if(convert.toEvent(input))
+		if(toEvent(input,new Convert()))
 			pressSwitch = !pressSwitch;
 		if(pressSwitch){
 			LeftMotor.setPower(1);
@@ -45,8 +46,7 @@ public class Motor_Sample_3 extends LinearOpMode {
 	}
 
 	private void MoveRightOnPress(boolean input) {
-		Convert convert = new Convert();
-		if(convert.toEvent(input))
+		if(toEvent(input, new Convert()))
 			pressSwitch = !pressSwitch;
 		if(pressSwitch){
 			LeftMotor.setPower(1);

@@ -37,10 +37,10 @@ public class Controller extends LinearOpMode_Handler {
         buttons[2] = Gamepad.x;
         buttons[3] = Gamepad.y;
 
-        hatSticks[0] = Gamepad.dpad_right;
-        hatSticks[1] = Gamepad.dpad_left;
-        hatSticks[2] = Gamepad.dpad_up;
-        hatSticks[3] = Gamepad.dpad_down;
+        hatSticks[0] = Gamepad.dpad_up;
+        hatSticks[1] = Gamepad.dpad_down;
+        hatSticks[2] = Gamepad.dpad_right;
+        hatSticks[3] = Gamepad.dpad_left;
 
         bumpers[0] = Gamepad.right_bumper;
         bumpers[1] = Gamepad.left_bumper;
@@ -116,15 +116,14 @@ public class Controller extends LinearOpMode_Handler {
     }*/
 
     //An easier way to reference the toEvent Method for controller inputs
-    public boolean press(boolean input) {
-        Convert convert = new Convert();
-        return convert.toEvent(input);
+    public static boolean press(boolean input, Convert instance) {
+        return toEvent(input, instance);
     }
 
     //Persists the input for a set amount of time
     public boolean persist(boolean input, int time) {
-        if(input == true){
-            return input;
+        if(input){
+            return true;
         }
         sleep(time);
         return false;

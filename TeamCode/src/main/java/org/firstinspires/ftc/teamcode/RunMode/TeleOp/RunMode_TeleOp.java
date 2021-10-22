@@ -4,9 +4,11 @@ import static org.firstinspires.ftc.teamcode.Framework.Controller.*;
 import static org.firstinspires.ftc.teamcode.RunMode.TeleOp.TeleOp_Methods.*;
 
 import org.firstinspires.ftc.teamcode.Framework.Controller;
+import org.firstinspires.ftc.teamcode.Framework.Convert;
 import org.firstinspires.ftc.teamcode.Hardware.Robot_Hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  *  @Author [Marcus Turley]
@@ -22,10 +24,10 @@ public class RunMode_TeleOp extends Robot_Hardware {
 
 		waitForStart();
 		while (opModeIsActive() && !isStopRequested()) {
-			if(Rollover(Gpads.sticks[0][0], Gpads.bumpers[0])) {
-
-			}
-			moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0]);
+			move(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0]);
+			PointCompass(Gpads.hatSticks);
+			//moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0]);
+			//moveHeading(Gpads.sticks[0][0], Gpads.sticks[0][1], Gpads.sticks[1][0], Gpads.sticksButtons[1], Gpads.sticksButtons[0]);
 		}
 	}
 
