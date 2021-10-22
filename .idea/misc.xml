@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/thing/Documents/Android Studio/FTC SDK/Ours/2021-2022/FtcRobotController/src/main/res/layout/activity_ftc_controller.xml" value="0.360054347826087" />
+        <entry key="..\:/Users/thing/Documents/Android Studio/FTC SDK/Ours/2021-2022/FtcRobotController/src/main/res/menu/ftc_robot_controller.xml" value="0.375" />
+        <entry key="..\:/Users/thing/Documents/Android Studio/FTC SDK/Ours/2021-2022/FtcRobotController/src/main/res/menu/my_ftc_robot_controller.xml" value="0.375" />
         <entry key="..\:/Users/thing/Documents/FTC SDK/FtcRobotController-7.0/FtcRobotController/src/main/res/layout/activity_ftc_controller.xml" value="0.23233695652173914" />
         <entry key="..\:/Users/thing/Documents/FTC SDK/FtcRobotController-7.0/FtcRobotController/src/main/res/menu/ftc_robot_controller.xml" value="0.21875" />
       </map>
