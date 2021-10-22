@@ -1,10 +1,14 @@
-package org.firstinspires.ftc.teamcode.FTC_Learning.Samples.TeleOp_Raw;
+package org.firstinspires.ftc.teamcode.FTC_Learning.Samples.TeleOp_Raw.Motor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class Motor_Sample_2 extends LinearOpMode {
+
+//@Purpose You can also make methods set the motor power with a single method
+
+
+public class Motor_Simple_4 extends LinearOpMode {
 
 	//Creates new DcMotor instances
 	DcMotor RightMotor;
@@ -58,5 +62,4 @@ public class Motor_Sample_2 extends LinearOpMode {
 			RightMotor.setPower(0);
 		}
 	}
-
 }

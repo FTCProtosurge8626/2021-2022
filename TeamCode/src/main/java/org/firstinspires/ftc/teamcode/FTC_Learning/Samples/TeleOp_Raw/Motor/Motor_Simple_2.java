@@ -1,10 +1,14 @@
-package org.firstinspires.ftc.teamcode.FTC_Learning.Samples.TeleOp_Raw;
+package org.firstinspires.ftc.teamcode.FTC_Learning.Samples.TeleOp_Raw.Motor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class Motor_Sample_1 extends LinearOpMode {
+
+//@Purpose Sleep halts anything that executes after the sleep whilst keeping anything previously running at a constant rate
+
+
+public class Motor_Simple_2 extends LinearOpMode {
 
 	//Creates new DcMotor instances
 	DcMotor RightMotor;
@@ -24,39 +28,21 @@ public class Motor_Sample_1 extends LinearOpMode {
 		waitForStart();
 
 		while (opModeIsActive() && !isStopRequested()) {
-			MoveRight(gamepad1.a);
-			StopRight(gamepad1.b);
-			MoveLeft(gamepad1.x);
-			StopLeft(gamepad1.y);
-		}
-	}
-
-	//Causes the RightMotor to move
-	private void MoveRight(boolean input) {
-		if(input){
 			RightMotor.setPower(1);
-		}
-	}
-
-	//Causes the RightMotor to stop
-	private void StopRight(boolean input) {
-		if(input){
-			RightMotor.setPower(0);
-		}
-	}
-
-	//Causes the LeftMotor to move
-	private void MoveLeft(boolean input) {
-		if(input) {
 			LeftMotor.setPower(1);
-		}
-	}
-
-	//Causes the LeftMotor to stop
-	private void StopLeft(boolean input) {
-		if(input){
+			sleep(1000);
+			RightMotor.setPower(0);
 			LeftMotor.setPower(0);
+			sleep(1000);
+			RightMotor.setPower(0.5);
+			LeftMotor.setPower(0.5);
+			sleep(1000);
+			RightMotor.setPower(1);
+			LeftMotor.setPower(0);
+			sleep(1000);
+			RightMotor.setPower(0);
+			LeftMotor.setPower(1);
+			sleep(1000);
 		}
 	}
-
 }
