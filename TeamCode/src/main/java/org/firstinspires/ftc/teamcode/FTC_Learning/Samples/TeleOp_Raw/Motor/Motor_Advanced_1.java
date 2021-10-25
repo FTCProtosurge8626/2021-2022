@@ -35,6 +35,7 @@ public class Motor_Advanced_1 extends LinearOpMode {
 
 	private boolean pressSwitch;
 
+	//Causes the LeftMotor to move the first moment the boolean is true and sets to to false immediately afterward otherwise it doesn't move and it moves at a power of the input value
 	private void MoveLeftOnPress(boolean input) {
 		if(toEvent(input,new Convert()))
 			pressSwitch = !pressSwitch;
@@ -46,6 +47,7 @@ public class Motor_Advanced_1 extends LinearOpMode {
 		}
 	}
 
+	//Causes the RightMotor to move the first moment the boolean is true and sets to to false immediately afterward otherwise it doesn't move and it moves at a power of the input value
 	private void MoveRightOnPress(boolean input) {
 		if(toEvent(input, new Convert()))
 			pressSwitch = !pressSwitch;
