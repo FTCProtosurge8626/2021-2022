@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode.Framework;
 
-
-import static org.firstinspires.ftc.teamcode.Framework.Convert.*;
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-public class Controller extends LinearOpMode_Handler {
+public class Controller_1 extends LinearOpMode_Handler {
+
+    private static final Converter converter = new Converter();
 
     //Instantiates arrays for the Gamepad inputs
     public double[][] sticks = new double[2][2];
-    public boolean[] sticksButtons = new boolean[1];
+    public boolean[] sticksButtons = new boolean[2];
     public double[] triggers = new double[2];
 
     public boolean[] buttons = new boolean[4];
@@ -21,12 +19,13 @@ public class Controller extends LinearOpMode_Handler {
     public double stickDeadband = 0.05;
 
     //Concatenates controller inputs together
-    public Controller (Gamepad Gamepad, double newStickDeadband) {
-        sticks[0][0] = Gamepad.left_stick_x;
-        sticks[0][1] = Gamepad.left_stick_y;
+    public Controller_1 (double newStickDeadband, Gamepad Gamepad) {
+        sticks[0][0] = Gamepad.left_stick_y;
+        sticks[0][1] = Gamepad.left_stick_x;
         sticksButtons[0] = Gamepad.left_stick_button;
-        sticks[1][0] = Gamepad.right_stick_x;
-        sticks[1][1] = Gamepad.right_stick_y;
+
+        sticks[1][0] = Gamepad.right_stick_y;
+        sticks[1][1] = Gamepad.right_stick_x;
         sticksButtons[1] = Gamepad.right_stick_button;
 
         triggers[0] = Gamepad.right_trigger;
@@ -52,11 +51,12 @@ public class Controller extends LinearOpMode_Handler {
     }
 
     //Sets the Gamepad inputs
-    public Controller (int newStickDeadband, Controller... Gamepads) {
-        for(Controller Gpad : Gamepads) {
+    public Controller_1 (double newStickDeadband, Controller_1... Gamepads) {
+        for(Controller_1 Gpad : Gamepads) {
             sticks[0][0] += Gpad.sticks[0][0];
             sticks[0][1] += Gpad.sticks[0][1];
             sticksButtons[0] |= Gpad.sticksButtons[0];
+
             sticks[1][0] += Gpad.sticks[1][0];
             sticks[1][1] += Gpad.sticks[1][1];
             sticksButtons[1] |= Gpad.sticksButtons[1];
@@ -80,44 +80,27 @@ public class Controller extends LinearOpMode_Handler {
             menus[0] |= Gpad.menus[0];
             menus[1] |= Gpad.menus[1];
 
-            stickDeadband += newStickDeadband;
+            stickDeadband = newStickDeadband;
         }
     }
 
     //Sets the sticks to run under certain conditions
-    public double[][] conditionSticks() {
-        for(int i = 0, j = 0; i < sticks.length/2; i++, j++) {
-            if(sticks[i - j * 2][j] > stickDeadband) {
-                return new double[][] { {sticks[0][0]/ stickDeadband, sticks[0][1]/ stickDeadband}, { sticks[1][0]/ stickDeadband, sticks[1][1]/ stickDeadband} };
+    public void conditionSticks() {
+        for(double i = 0, j = 0; i < sticks.length - 1; i += 0.5, j++) {
+            if(sticks[(int)i][(int)j] < stickDeadband)
+                sticks[(int)i][(int)j] = 0;
+            if(j >= 1){
+                j = 0;
             }
         }
-        return new double[][] { {0,0}, {0,0} };
     }
-
-		/*
-    boolean pressSwitch;
-    boolean loop;
-    //Forces the hold input to be converted to a press input
-    boolean press(boolean press) {
-        if(press && loop) {
-            if(pressSwitch) {
-                loop = false;
-                pressSwitch = false;
-            } else {
-                loop = false;
-                pressSwitch = true;
-            }
-        } else if(!press){
-            loop = true;
-        }
-        this.pressSwitch = pressSwitch;
-        this.loop = loop;
-        return pressSwitch;
-    }*/
-
     //An easier way to reference the toEvent Method for controller inputs
-    public static boolean press(boolean input, Convert instance) {
-        return toEvent(input, instance);
+    public static boolean press(boolean input) {
+        return Converter.toEvent(input, converter);
+    }
+    //An easier way to reference the toEvent Method for controller inputs
+    public static boolean press(double input, double range) {
+        return Converter.toEvent(input, converter, range);
     }
 
     //Persists the input for a set amount of time
@@ -128,19 +111,19 @@ public class Controller extends LinearOpMode_Handler {
         sleep(time);
         return false;
     }
+/*
+	//Returns when a combination of inputs have been pressed starting from the first value put into the method
+	public static <T> boolean Rollover(T ... inputs) {
+		boolean[] boolInputs = new boolean[inputs.length];
+		for(int i = 0; i < inputs.length; i++){
+			if(inputs[i] == Integer.class || inputs[i] == Double.class ){
+				boolInputs[i] = (int)inputs[i] != 0;
+			}
+		}
 
-    //Returns when a combination of inputs have been pressed starting from the first value put into the method
-    public static <T> boolean Rollover(T ... inputs) {
-        boolean[] boolInputs = new boolean[inputs.length];
-        for(int i = 0; i < inputs.length; i++){
-            if(inputs[i] == Integer.class || inputs[i] == Double.class ){
-                boolInputs[i] = (int)inputs[i] != 0;
-            }
-        }
-
-        for(int i = 0; i < inputs.length && boolInputs[i]; i++) {
-            return boolInputs[i];
-        }
-        return false;
-    }
+		for(int i = 0; i < inputs.length && boolInputs[i]; i++) {
+			return boolInputs[i];
+		}
+		return false;
+	}*/
 }
