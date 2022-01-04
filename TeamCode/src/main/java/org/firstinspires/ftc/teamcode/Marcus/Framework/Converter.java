@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Marcus.Framework;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 public class Converter extends LinearOpMode_Handler {
     //Converts any number to boolean
     public static boolean toBoolean(int value, double range) {
@@ -37,6 +39,29 @@ public class Converter extends LinearOpMode_Handler {
             return true;
         } else if(!toBoolean(input, range)){
             instance.inputEvent = true;
+        }
+        return false;
+    }
+
+    //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
+    public boolean toEvent(boolean input) {
+        if(inputEvent && input){
+            inputEvent = false;
+            return true;
+        } else if(!input){
+            inputEvent = true;
+        }
+        return false;
+    }
+
+    private ElapsedTime runtime = new ElapsedTime();
+
+    //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
+    public boolean persist(boolean input, double time) {
+        if(time <= 0.001) time = 0.001;
+        if(runtime.seconds() >= time) {
+            runtime.reset();
+            return input;
         }
         return false;
     }

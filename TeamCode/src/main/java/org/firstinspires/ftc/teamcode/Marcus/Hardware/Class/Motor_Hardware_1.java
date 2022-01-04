@@ -24,7 +24,7 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 		hardwareMap(intake, HMap, "intake", "extension", "lift");
 
 		//Sets all the motors' directions to forwards
-		setDirections(motors, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD,  DcMotorSimple.Direction.FORWARD);
+		setDirections(motors, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,  DcMotorSimple.Direction.FORWARD);
 		setDirections(intake, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
 
 		//Sets all the motors'

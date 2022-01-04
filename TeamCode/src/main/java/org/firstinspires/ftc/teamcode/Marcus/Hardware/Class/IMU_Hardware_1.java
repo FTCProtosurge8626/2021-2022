@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Marcus.Hardware.Class;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Marcus.Framework.Converter;
@@ -34,7 +35,11 @@ public class IMU_Hardware_1 {
 		NORTH,
 		SOUTH,
 		EAST,
-		WEST
+		WEST,
+		NORTHEAST,
+		NORTHWEST,
+		SOUTHEAST,
+		SOUTHWEST,
 	}
 
 	//Creates an instance of the enum Compass
@@ -58,7 +63,7 @@ public class IMU_Hardware_1 {
 	public static void orientCompass() {
 		switch(IMU_Hardware_1.compass) {
 			case NORTH:
-				target = 1;
+				target = 0;
 				break;
 			case SOUTH:
 				target = 180;
@@ -68,6 +73,18 @@ public class IMU_Hardware_1 {
 				break;
 			case WEST:
 				target = -90;
+				break;
+			case NORTHEAST:
+				target = 45;
+				break;
+			case NORTHWEST:
+				target = -45;
+				break;
+			case SOUTHEAST:
+				target = 135;
+				break;
+			case SOUTHWEST:
+				target = -135;
 				break;
 		}
 	}
@@ -103,7 +120,8 @@ public class IMU_Hardware_1 {
 
 	//Gets the IMU's distance to target heading
 	public static double error() {
-		return Converter.forceNormalize((heading() - target()) * scale,-1,1);
+		return Range.clip((heading() - target()),0,1);
+		//return Converter.forceNormalize((heading() - target()) * scale,-1,1);
 		/*
 		double distance = heading() - target;
 		if(Math.abs(distance) > 180){
