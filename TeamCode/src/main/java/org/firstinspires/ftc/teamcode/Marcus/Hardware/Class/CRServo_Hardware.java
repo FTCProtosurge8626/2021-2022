@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardware.Class;
+package org.firstinspires.ftc.teamcode.Marcus.Hardware.Class;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
