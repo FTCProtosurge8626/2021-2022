@@ -17,19 +17,25 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 	//Creates a new array of DCMotor Objects
 	public static DcMotor[] intake = new DcMotor[3];
 
+	//Creates a new array of DCMotor Objects
+	public static DcMotor[] carousel = new DcMotor[1];
+
 	//Initializes the motors
 	public static void initMotors(HardwareMap HMap) {
 		//Sets all the motors' names
 		hardwareMap(motors, HMap, "front_right_drive", "front_left_drive", "back_right_drive", "back_left_drive");
-		hardwareMap(intake, HMap, "intake", "extension", "lift");
+		hardwareMap(intake, HMap, "rotors", "slide", "lift");
+		hardwareMap(carousel, HMap, "duck");
 
 		//Sets all the motors' directions to forwards
 		setDirections(motors, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,  DcMotorSimple.Direction.FORWARD);
 		setDirections(intake, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
+		setDirections(carousel, DcMotorSimple.Direction.REVERSE);
 
 		//Sets all the motors'
 		brakeBehaviour(motors, DcMotor.ZeroPowerBehavior.BRAKE);
 		brakeBehaviour(intake, DcMotor.ZeroPowerBehavior.BRAKE);
+		brakeBehaviour(carousel, DcMotor.ZeroPowerBehavior.BRAKE);
 		/*
 		//Checks the RunMode if RunMode is not TeleOp or Autonomous
 		if(runMode == Robot_Hardware.RunMode.TeleOp) {
