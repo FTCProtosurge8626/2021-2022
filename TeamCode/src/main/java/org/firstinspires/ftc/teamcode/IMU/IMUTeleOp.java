@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Sam.IMU;
+package org.firstinspires.ftc.teamcode.IMU;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -14,7 +14,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 /**
