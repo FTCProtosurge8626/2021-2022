@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 import java.util.Date;
 
+//Outdated, use IMUTeleOp
+
 @Disabled
 @TeleOp(name= "RunMode: MachTeleOp", group = "TeleOp")
 public class MachTeleOp extends MachHardware {

@@ -4,17 +4,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-enum DriveMode {
-    DRIVE,
-    STRAFE,
-    TURN
-}
-
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 public class EncoderAutonomous extends MachHardware {
 
+    enum DriveMode {
+        DRIVE,
+        STRAFE,
+        TURN
+    }
+
     /* Declare OpMode members. */
-    private ElapsedTime	 runtime = new ElapsedTime();
+    private final ElapsedTime	 runtime = new ElapsedTime();
 
     static final double	 COUNTS_PER_MOTOR_REV	 = 1440 ;	// eg: TETRIX Motor Encoder
     static final double	 DRIVE_GEAR_REDUCTION	 = 2.0 ;	 // This is < 1.0 if geared UP
