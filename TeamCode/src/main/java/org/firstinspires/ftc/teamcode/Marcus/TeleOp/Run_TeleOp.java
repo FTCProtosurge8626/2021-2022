@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Marcus.RunMode.TeleOp;
+package org.firstinspires.ftc.teamcode.Marcus.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Marcus.Framework.Controller_1;
 import org.firstinspires.ftc.teamcode.Marcus.Framework.Converter;
@@ -40,11 +40,11 @@ public class Run_TeleOp extends Main_Hardware {
 */
             //TeleOp_Methods.moveCompass(IMU_Hardware_1.target(), Gpad1.sticks[0][0],Gpad1.sticks[0][1],Gpad1.sticks[1][0], Gpad1.hatSticks, this);
             //TeleOp_Methods.changePower(Controller_1.press(Gpads.bumpers[1]), Controller_1.press(Gpads.bumpers[0]));
-            org.firstinspires.ftc.teamcode.Marcus.RunMode.TeleOp.TeleOp_Methods.move(Gpad1.sticks[0][0],Gpad1.sticks[0][1],Gpad1.sticks[1][1], Gpad1.hatSticks);
+            org.firstinspires.ftc.teamcode.Marcus.TeleOp.TeleOp_Methods.move(Gpad1.sticks[0][0],Gpad1.sticks[0][1],Gpad1.sticks[1][1], Gpad1.hatSticks);
             //TeleOp_Methods.ReOrient(Gpads.sticks[0][0],Gpads.sticks[0][1],Gpads.sticks[1][0]);
             //TeleOp_Methods.moveHeading(Gpads.sticks[0][0],Gpads.sticks[0][1],Gpads.sticks[1][0], this);
-            org.firstinspires.ftc.teamcode.Marcus.RunMode.TeleOp.TeleOp_Methods.intake(Gpad2.buttons,Gpad2.triggers,Gpad2.sticks[0][1]);
-            org.firstinspires.ftc.teamcode.Marcus.RunMode.TeleOp.TeleOp_Methods.moveCarousel(Gpad1.bumpers[0], Gpad1.bumpers[1]);
+            org.firstinspires.ftc.teamcode.Marcus.TeleOp.TeleOp_Methods.intake(Gpad2.buttons,Gpad2.triggers,Gpad2.sticks[0][1]);
+            org.firstinspires.ftc.teamcode.Marcus.TeleOp.TeleOp_Methods.moveCarousel(Gpad1.bumpers[0], Gpad1.bumpers[1]);
         }
     }
 }
