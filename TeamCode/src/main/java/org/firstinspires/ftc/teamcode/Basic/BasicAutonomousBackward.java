@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.Sam.Basic;
+package org.firstinspires.ftc.teamcode.Basic;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @Autonomous(group = "Autonomous", name = "Autonomous: DepotBackward")
 public class BasicAutonomousBackward extends BasicHardware{

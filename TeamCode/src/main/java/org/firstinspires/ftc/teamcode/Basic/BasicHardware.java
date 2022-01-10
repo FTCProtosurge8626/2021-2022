@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Sam.Basic;
+package org.firstinspires.ftc.teamcode.Basic;
 
 // @Note This lesson will explain what a Basic_Hardware is, how it functions, and how to structure it.
 // @Note @Description is not essential to understanding what is going on but is useful it you lose track
@@ -12,7 +12,6 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 

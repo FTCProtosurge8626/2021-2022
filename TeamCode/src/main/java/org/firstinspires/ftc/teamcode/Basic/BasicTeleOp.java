@@ -1,14 +1,13 @@
-package org.firstinspires.ftc.teamcode.Sam.Basic;
+package org.firstinspires.ftc.teamcode.Basic;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="TeleOp With Intake", group="TeleOp")//Adds the Basic TeleOpMode to the TeleOp group
-public class BasicTeleOpIntake extends LinearOpMode {
+@TeleOp(name="Basic: TeleOpMode", group="TeleOp")//Adds the Basic TeleOpMode to the TeleOp group
+public class BasicTeleOp extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -18,9 +17,6 @@ public class BasicTeleOpIntake extends LinearOpMode {
     private DcMotor backRight = null;
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
-    private DcMotor rotors = null;
-    private DcMotor lift = null;
-    private DcMotor slide = null;
 
     // Setup a variable for each drive wheel to save power level for telemetry
     private double backLeftPower;
@@ -36,11 +32,6 @@ public class BasicTeleOpIntake extends LinearOpMode {
 
     private double maxSpeed;
 
-    //For the intake
-    private double extend;
-    private double vertical;
-    private double spin;
-
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -53,26 +44,17 @@ public class BasicTeleOpIntake extends LinearOpMode {
         backRight  = hardwareMap.get(DcMotor.class, "back_right_drive");
         frontLeft = hardwareMap.get(DcMotor.class, "front_left_drive");
         frontRight = hardwareMap.get(DcMotor.class, "front_right_drive");
-        rotors = hardwareMap.get(DcMotor.class, "rotors");
-        lift = hardwareMap.get(DcMotor.class, "lift");
-        slide = hardwareMap.get(DcMotor.class, "slide");
 
         // Set the motor directions. Two motors will need to be reversed
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
-        rotors.setDirection(DcMotor.Direction.FORWARD);
-        slide.setDirection(DcMotor.Direction.FORWARD);
-        lift.setDirection(DcMotor.Direction.FORWARD);
 
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rotors.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         maxSpeed = 1.0;
 
@@ -98,18 +80,6 @@ public class BasicTeleOpIntake extends LinearOpMode {
                 turn /= total;
             }
 
-            //Extend, vertical, spin
-
-            extend = Range.clip(gamepad2.right_trigger - gamepad2.left_trigger,-maxSpeed,maxSpeed);
-            vertical = Range.clip(gamepad2.right_stick_y/10,-maxSpeed,maxSpeed);
-            if (gamepad2.a && !gamepad2.b) {
-                spin = 0.7;
-            } else if (gamepad2.b && !gamepad2.a) {
-                spin = -0.7;
-            } else {
-                spin = 0;
-            }
-
             //Calculate required movement based on given inputs
 
             backLeftPower	  = Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
@@ -123,10 +93,6 @@ public class BasicTeleOpIntake extends LinearOpMode {
             backRight.setPower(backRightPower);
             frontLeft.setPower(frontLeftPower);
             frontRight.setPower(frontRightPower);
-
-            rotors.setPower(spin);
-            slide.setPower(extend);
-            lift.setPower(vertical);
 
             // Show the elapsed game time and wheel power.
             //telemetry.addData("Status", "Run Time: " + runtime.toString());

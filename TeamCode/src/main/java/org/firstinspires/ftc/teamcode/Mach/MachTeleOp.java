@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.Sam.Main;
+package org.firstinspires.ftc.teamcode.Mach;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 import java.util.Date;
+
+//Outdated, use IMUTeleOp
 
 @Disabled
 @TeleOp(name= "RunMode: MachTeleOp", group = "TeleOp")
