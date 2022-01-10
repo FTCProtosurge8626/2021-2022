@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Sam.IMU;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -54,6 +56,7 @@ import java.util.Locale;
  * */
 
 @TeleOp(name = "IMU TeleOp", group = "Sensor")
+@Disabled
 public class IMUTeleOp extends IMUHardware {
     //----------------------------------------------------------------------------------------------
     // State
@@ -168,7 +171,7 @@ public class IMUTeleOp extends IMUHardware {
             if (gamepad1.a && !gamepad1.b) {
                 driveMode = Swap.POV;
             } else if (!gamepad1.a && gamepad1.b) {
-                driveMode = Swap.TANK;
+                //driveMode = Swap.TANK;
             } else if (gamepad1.x) {
                 //driveMode = Swap.HEADLESS;
             }
@@ -181,6 +184,7 @@ public class IMUTeleOp extends IMUHardware {
                 turn  = gamepad1.right_stick_x; //Checks the right stick on the controller for horizontal offset
                 total =  Math.abs(drive) + Math.abs(strafe) + Math.abs(turn);
 
+                turn = turn/1.5;
                 //This code is to ensure that no values would go over 1.0 or under -1.0, and to maintain aspect ratio so movement is not wonkified by large values
 
                 if (total > maxSpeed) {
@@ -189,8 +193,14 @@ public class IMUTeleOp extends IMUHardware {
                     turn /= total;
                 }
 
-                //Calculate required movement based on given inputs
 
+                //Calculate required movement based on given inputs
+/*
+				power[0]	= Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
+				power[1]	= Range.clip(drive + strafe + turn, -maxSpeed, maxSpeed);
+				power[2]	= Range.clip(drive + strafe - turn, -maxSpeed, maxSpeed);
+				power[3]	= Range.clip(drive - strafe + turn, -maxSpeed, maxSpeed);
+*/
                 power[0]	= Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
                 power[1]	= Range.clip(drive + strafe + turn, -maxSpeed, maxSpeed);
                 power[2]	= Range.clip(drive + strafe - turn, -maxSpeed, maxSpeed);

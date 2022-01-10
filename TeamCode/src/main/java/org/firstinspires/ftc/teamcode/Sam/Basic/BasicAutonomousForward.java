@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Sam.Basic;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Autonomous(group = "Autonomous", name = "Autonomous: Red Warehouse")
-public class BasicAutonomousRed extends BasicHardware{
+@Autonomous(group = "Autonomous", name = "Autonomous: DepotForward")
+public class BasicAutonomousForward extends BasicHardware{
 
     // todo: write your code here
     public void runOpMode() {
@@ -12,11 +12,11 @@ public class BasicAutonomousRed extends BasicHardware{
 
         waitForStart();
         //Code goes here
-        strafe(.5,1000);
-        forward(.6,2000);
+        //sleep(10000);
+        strafe(-.6,500);
+        forward(.7,1250);
     }
     public void forward(double power, int wait) {
-        power *= -1;
         backRight.setPower(power);
         backLeft.setPower(power);
         frontRight.setPower(power);
