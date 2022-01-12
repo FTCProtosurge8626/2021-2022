@@ -94,4 +94,11 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 			Motors[indexes[i]].setPower(powers[i]);
 		}
 	}
+
+	//Sets all motors powers based on their index
+	public static void setTargetPosition(DcMotor[] Motors, int... powers) {
+		for(int i = 0; i < powers.length; i++){
+			Motors[i].setTargetPosition(powers[i]);
+		}
+	}
 }

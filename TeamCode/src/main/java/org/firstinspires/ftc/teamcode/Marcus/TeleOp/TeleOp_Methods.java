@@ -28,13 +28,13 @@ public class TeleOp_Methods extends Main_Hardware {
         horizontal *= powerGain;
         rotational *= powerGain;
 
-        double totalPower = Math.abs(forward) + Math.abs(horizontal) + Math.abs(rotational);
+        double maxPower = Math.abs(forward) + Math.abs(horizontal) + Math.abs(rotational);
         int range = 1;
 
-        if(totalPower > 1) {
-            forward /= totalPower;
-            horizontal /= totalPower;
-            rotational /= totalPower;
+        if(maxPower > 1) {
+            forward /= maxPower;
+            horizontal /= maxPower;
+            rotational /= maxPower;
         }
 /*
         if(rotational != 0) {

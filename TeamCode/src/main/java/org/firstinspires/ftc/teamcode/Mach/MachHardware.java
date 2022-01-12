@@ -50,10 +50,16 @@ public class MachHardware extends LinearOpMode {
         duck = hardwareMap.get(DcMotor.class, "duck");
 
         // Set the motor directions. Two motors will need to be reversed
+        /*
         motors[0].setDirection(DcMotor.Direction.FORWARD);
         motors[1].setDirection(DcMotor.Direction.REVERSE);
         motors[2].setDirection(DcMotor.Direction.FORWARD);
         motors[3].setDirection(DcMotor.Direction.REVERSE);
+        */
+        motors[0].setDirection(DcMotor.Direction.REVERSE);
+        motors[1].setDirection(DcMotor.Direction.FORWARD);
+        motors[2].setDirection(DcMotor.Direction.REVERSE);
+        motors[3].setDirection(DcMotor.Direction.FORWARD);
 
         rotors.setDirection(DcMotor.Direction.FORWARD);
         slide.setDirection(DcMotor.Direction.FORWARD);

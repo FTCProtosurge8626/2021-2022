@@ -264,21 +264,21 @@ public class IMUTeleOp extends MachHardware {
 
                 //Calculate required movement based on given inputs
 
-                power[0]	= Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
-                power[1]	= Range.clip(drive + strafe + turn, -maxSpeed, maxSpeed);
-                power[2]	= Range.clip(drive + strafe - turn, -maxSpeed, maxSpeed);
-                power[3]	= Range.clip(drive - strafe + turn, -maxSpeed, maxSpeed);
+                power[0]	= Range.clip(drive - strafe + turn, -maxSpeed, maxSpeed);
+                power[1]	= Range.clip(drive + strafe - turn, -maxSpeed, maxSpeed);
+                power[2]	= Range.clip(drive + strafe + turn, -maxSpeed, maxSpeed);
+                power[3]	= Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
             }
         }
     }
 
     public void intake() {
         extend = Range.clip(gamepad2.right_trigger - gamepad2.left_trigger,-1,1);
-        vertical = Range.clip(gamepad2.right_stick_y - 0.2,-maxSpeed,maxSpeed)/1.5;
+        vertical = Range.clip(-gamepad2.right_stick_y + 0.1,-maxSpeed,maxSpeed)/1.5;
         if (gamepad2.b && !gamepad2.a) {
-            spin = 0.8;
-        } else if (gamepad2.a && !gamepad2.b) {
             spin = -0.8;
+        } else if (gamepad2.a && !gamepad2.b) {
+            spin = 0.8;
         } else {
             spin = 0;
         }
