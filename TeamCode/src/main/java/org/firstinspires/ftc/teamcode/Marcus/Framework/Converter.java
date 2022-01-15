@@ -43,14 +43,12 @@ public class Converter extends LinearOpMode_Handler {
         return false;
     }
 
+    private static ElapsedTime inputTime = new ElapsedTime();
     //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
-    public boolean toEvent(boolean input) {
-        if(inputEvent && input){
-            inputEvent = false;
+    public static boolean toEvent(boolean input) {
+        if(input && inputTime.seconds() <= 0.5){
             return true;
-        } else if(!input){
-            inputEvent = true;
-        }
+        } else inputTime.reset();
         return false;
     }
 

@@ -16,6 +16,7 @@ public class BasicAutonomousBackward extends BasicHardware{
         forward(-.7,1000);
     }
     public void forward(double power, int wait) {
+        power *= -1;
         backRight.setPower(power);
         backLeft.setPower(power);
         frontRight.setPower(power);

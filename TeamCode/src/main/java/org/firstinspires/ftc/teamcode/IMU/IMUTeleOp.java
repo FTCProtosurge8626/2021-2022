@@ -284,7 +284,7 @@ public class IMUTeleOp extends IMUHardware {
     }
 
     public void intake() {
-        extend = Range.clip(gamepad2.right_trigger - gamepad2.left_trigger,-maxSpeed,maxSpeed);
+        //extend = Range.clip(gamepad2.right_trigger - gamepad2.left_trigger,-maxSpeed,maxSpeed);
         vertical = Range.clip(gamepad2.right_stick_y,-maxSpeed,maxSpeed);
         if (gamepad2.b && !gamepad2.a) {
             spin = 0.8;
@@ -426,6 +426,7 @@ public class IMUTeleOp extends IMUHardware {
                 break;
             }
         }
+        newAngle = 0;
         return newAngle;
     }
 

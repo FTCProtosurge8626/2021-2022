@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.Marcus.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Class.Motor_Hardware_1;
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Main_Hardware;
-
-@TeleOp(name = "Marcus: Encoder_Test", group = "Encoder")
+@Disabled
+@Autonomous(name = "Marcus: Encoder_Test", group = "Encoder")
 public class Encoder_Test extends Main_Hardware {
 
     /* Declare OpMode members. */

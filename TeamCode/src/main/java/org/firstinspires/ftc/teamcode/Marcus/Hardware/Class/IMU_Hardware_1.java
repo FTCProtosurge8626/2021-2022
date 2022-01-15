@@ -58,7 +58,7 @@ public class IMU_Hardware_1 {
 	public static void orientCompass() {
 		switch(IMU_Hardware_1.compass) {
 			case NORTH:
-				target = 1;
+				target = 0;
 				break;
 			case SOUTH:
 				target = 180;
@@ -75,7 +75,7 @@ public class IMU_Hardware_1 {
 	//Gets the IMU's current orientation
 	public static double heading() {
 		angles = imu.getAngularOrientation();
-		return -angles.firstAngle;
+		return angles.firstAngle;
 		/*
 		if(IMU_Hardware_1.angles.firstAngle < 0){
 			return Converter.inverse(IMU_Hardware_1.angles.firstAngle + 360, 0, 360);

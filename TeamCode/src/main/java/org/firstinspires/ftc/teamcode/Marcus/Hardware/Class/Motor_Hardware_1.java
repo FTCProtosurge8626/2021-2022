@@ -28,7 +28,7 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 		hardwareMap(carousel, HMap, "duck");
 
 		//Sets all the motors' directions to forwards
-		setDirections(motors, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD,  DcMotorSimple.Direction.FORWARD);
+		setDirections(motors, DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE,  DcMotorSimple.Direction.FORWARD);
 		setDirections(intake, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD);
 		setDirections(carousel, DcMotorSimple.Direction.REVERSE);
 

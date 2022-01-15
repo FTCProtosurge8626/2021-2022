@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Marcus.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Class.Motor_Hardware_1;
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Main_Hardware;
 
-@TeleOp(name = "Marcus: Encoder_Test_New", group = "Encoder")
+@Autonomous(name = "Marcus: Encoder_Test_New", group = "Encoder")
 public class Encoder_Test_New extends Main_Hardware {
 
     /* Declare OpMode members. */
@@ -31,11 +31,20 @@ public class Encoder_Test_New extends Main_Hardware {
         //Sets all the motors' names
         Motor_Hardware_1.hardwareMap(Motor_Hardware_1.motors, HMap, "front_right_drive", "front_left_drive", "back_right_drive", "back_left_drive");
 
-        Motor_Hardware_1.brakeBehaviour(Motor_Hardware_1.motors, DcMotor.ZeroPowerBehavior.BRAKE);
-        Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_USING_ENCODER);
+        //Motor_Hardware_1.brakeBehaviour(Motor_Hardware_1.motors, DcMotor.ZeroPowerBehavior.BRAKE);
+        //Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // Send telemetry message to indicate successful Encoder reset
+        Motor_Hardware_1.motors[0].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Motor_Hardware_1.motors[1].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Motor_Hardware_1.motors[2].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Motor_Hardware_1.motors[3].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        Motor_Hardware_1.motors[0].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Motor_Hardware_1.motors[1].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Motor_Hardware_1.motors[2].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Motor_Hardware_1.motors[3].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         telemetry.addData("Path0",  "Starting at %7d :%7d :%7d :%7d",
                 Motor_Hardware_1.motors[0].getCurrentPosition(),
                 Motor_Hardware_1.motors[1].getCurrentPosition(),
@@ -43,14 +52,12 @@ public class Encoder_Test_New extends Main_Hardware {
                 Motor_Hardware_1.motors[3].getCurrentPosition());
         telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(1,  10,  0, 0, 5.0);  // S1: Forward 50 Inches with 5 Sec timeout
-        encoderDrive(1,   0, 10, 0, 5.0);  // S2: Turn Right 50 Inches with 5 Sec timeout
-        encoderDrive(1, 0, 0, 10, 5.0);  // S3: Reverse 50 Inches with 5 Sec timeout
+        encoderDrive(0.05, 100, 0, 0, 500,5);
+        //encoderDrive(1, 10, 0, 0, 500,5);
+        //encoderDrive(1, 0, 10, 0, 500,5);
+        //encoderDrive(1, 0, 0, 10, 500,5);
 
         sleep(1000);     // pause for servos to move
 
@@ -58,35 +65,63 @@ public class Encoder_Test_New extends Main_Hardware {
         telemetry.update();
     }
 
-    /*
-     *  Method to perform a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-    public void encoderDrive(double speed,
-                             double forward, double horizontal, double rotational,
-                             double timeoutS) {
+    public void encoderDrive(double speed, int forward, double horizontal, double rotational, int sleep, double timeoutS) {
         int[] target = new int[4];
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            target[0] = Motor_Hardware_1.motors[0].getCurrentPosition() + (int)(forward - horizontal - rotational * COUNTS_PER_INCH);
-            target[1] = Motor_Hardware_1.motors[1].getCurrentPosition() + (int)(forward + horizontal - rotational * COUNTS_PER_INCH);
-            target[2] = Motor_Hardware_1.motors[2].getCurrentPosition() + (int)(forward - horizontal - rotational * COUNTS_PER_INCH);
+            /*
+            target[2] = Motor_Hardware_1.motors[0].getCurrentPosition() + (int)(forward + horizontal + rotational * COUNTS_PER_INCH);
+            target[1] = Motor_Hardware_1.motors[1].getCurrentPosition() + (int)(forward - horizontal - rotational * COUNTS_PER_INCH);
+            target[0] = Motor_Hardware_1.motors[2].getCurrentPosition() + (int)(forward - horizontal + rotational * COUNTS_PER_INCH);
             target[3] = Motor_Hardware_1.motors[3].getCurrentPosition() + (int)(forward + horizontal - rotational * COUNTS_PER_INCH);
-            Motor_Hardware_1.setTargetPosition(Motor_Hardware_1.motors,target[0],target[1],target[2],target[3]);
 
+            target[0] = Motor_Hardware_1.motors[0].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[1] = Motor_Hardware_1.motors[1].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[2] = Motor_Hardware_1.motors[2].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[3] = Motor_Hardware_1.motors[3].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+
+            target[0] = Motor_Hardware_1.motors[0].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[1] = Motor_Hardware_1.motors[1].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[2] = Motor_Hardware_1.motors[2].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+            target[3] = Motor_Hardware_1.motors[3].getCurrentPosition() + (int)(forward * COUNTS_PER_INCH);
+             */
+
+            //Motor_Hardware_1.setTargetPosition(Motor_Hardware_1.motors,target[0],target[1],target[2],target[3]);
+            /*
+            Motor_Hardware_1.motors[0].setTargetPosition(target[0]);
+            Motor_Hardware_1.motors[1].setTargetPosition(target[1]);
+            Motor_Hardware_1.motors[2].setTargetPosition(target[2]);
+            Motor_Hardware_1.motors[3].setTargetPosition(target[3]);
+            */
+
+            target[0] = Motor_Hardware_1.motors[0].getCurrentPosition() + forward;
+            target[1] = Motor_Hardware_1.motors[1].getCurrentPosition() + forward;
+            target[2] = Motor_Hardware_1.motors[2].getCurrentPosition() + forward;
+            target[3] = Motor_Hardware_1.motors[3].getCurrentPosition() + forward;
+
+            Motor_Hardware_1.motors[0].setTargetPosition(target[0]);
+            Motor_Hardware_1.motors[1].setTargetPosition(target[1]);
+            Motor_Hardware_1.motors[2].setTargetPosition(target[2]);
+            Motor_Hardware_1.motors[3].setTargetPosition(target[3]);
             // Turn On RUN_TO_POSITION
-            Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_TO_POSITION);
+            //Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_TO_POSITION);
+
+            Motor_Hardware_1.motors[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Motor_Hardware_1.motors[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Motor_Hardware_1.motors[2].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Motor_Hardware_1.motors[3].setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            Motor_Hardware_1.setPowers(Motor_Hardware_1.motors, Math.abs(speed));
+
+            //Motor_Hardware_1.setPowers(Motor_Hardware_1.motors, Math.abs(speed));
+            Motor_Hardware_1.motors[0].setPower(.05);
+            Motor_Hardware_1.motors[1].setPower(.05);
+            Motor_Hardware_1.motors[2].setPower(.05);
+            Motor_Hardware_1.motors[3].setPower(.05);
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -94,6 +129,7 @@ public class Encoder_Test_New extends Main_Hardware {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            /*
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (Motor_Hardware_1.motors[0].isBusy() || Motor_Hardware_1.motors[1].isBusy() || Motor_Hardware_1.motors[2].isBusy() || Motor_Hardware_1.motors[3].isBusy())) {
@@ -101,6 +137,29 @@ public class Encoder_Test_New extends Main_Hardware {
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", target[0], target[1], target[2], target[3]);
                 telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
+                        Motor_Hardware_1.motors[0].getTargetPosition(),
+                        Motor_Hardware_1.motors[1].getTargetPosition(),
+                        Motor_Hardware_1.motors[2].getTargetPosition(),
+                        Motor_Hardware_1.motors[3].getTargetPosition());
+                telemetry.addData("Path3",  "Running at %7d :%7d :%7d :%7d",
+                        Motor_Hardware_1.motors[0].getCurrentPosition(),
+                        Motor_Hardware_1.motors[1].getCurrentPosition(),
+                        Motor_Hardware_1.motors[2].getCurrentPosition(),
+                        Motor_Hardware_1.motors[3].getCurrentPosition());
+                telemetry.update();
+            }*/
+            // &&
+            //                    (runtime.seconds() < timeoutS)
+            while (!isStopRequested() &&
+                    (Motor_Hardware_1.motors[0].getCurrentPosition() < Motor_Hardware_1.motors[0].getTargetPosition() ||
+                    Motor_Hardware_1.motors[1].getCurrentPosition() < Motor_Hardware_1.motors[1].getTargetPosition() ||
+                    Motor_Hardware_1.motors[2].getCurrentPosition() < Motor_Hardware_1.motors[2].getTargetPosition() ||
+                    Motor_Hardware_1.motors[3].getCurrentPosition() < Motor_Hardware_1.motors[3].getTargetPosition()
+            )) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", target[0], target[1], target[2], target[3]);
+                telemetry.addData("Path3",  "Running at %7d :%7d :%7d :%7d",
                         Motor_Hardware_1.motors[0].getCurrentPosition(),
                         Motor_Hardware_1.motors[1].getCurrentPosition(),
                         Motor_Hardware_1.motors[2].getCurrentPosition(),
@@ -109,12 +168,21 @@ public class Encoder_Test_New extends Main_Hardware {
             }
 
             // Stop all motion;
-            Motor_Hardware_1.setPowers(Motor_Hardware_1.motors, 0);
+            //Motor_Hardware_1.setPowers(Motor_Hardware_1.motors, 0);
+
+            Motor_Hardware_1.motors[0].setPower(0);
+            Motor_Hardware_1.motors[1].setPower(0);
+            Motor_Hardware_1.motors[2].setPower(0);
+            Motor_Hardware_1.motors[3].setPower(0);
 
             // Turn off RUN_TO_POSITION
-            Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_USING_ENCODER);
+            //Motor_Hardware_1.EncoderMode(Motor_Hardware_1.motors, DcMotor.RunMode.RUN_USING_ENCODER);
+            Motor_Hardware_1.motors[0].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Motor_Hardware_1.motors[1].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Motor_Hardware_1.motors[2].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Motor_Hardware_1.motors[3].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(250);   // optional pause after each move
+            sleep(sleep);   // optional pause after each move
         }
     }
 }

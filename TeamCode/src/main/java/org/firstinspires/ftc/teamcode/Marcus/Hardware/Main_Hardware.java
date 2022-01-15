@@ -28,17 +28,18 @@ public class Main_Hardware extends LinearOpMode_Handler {
     //public static Telemetry telemetry;
 
     //Compiles inside of the RunOpMode Autonomous
-    protected void initAutonomous(){
-        //HMap = hardwareMap;
-        //Print = telemetry;
-
-        //runMode = Robot_Hardware.RunMode.Autonomous;
+    protected void initAutonomous(RunMode nRunMode, HardwareMap nHMap, Telemetry nTelemetry){
+        runMode = nRunMode;
+        HMap = nHMap;
+        //telemetry = nTelemetry;
+        //driveMode = newDriveMode;
+        //runMode = RunMode.TeleOp;
         //	Motors
-        //Motor_Hardware.InitMotors(runMode);
+        Motor_Hardware_1.initMotors(nHMap);
         //	Servos
         //Servo_Hardware.InitServos(runMode);
         //	Sensors
-        //IMU_Hardware.InitIMU(runMode);
+        IMU_Hardware_1.initIMU(nHMap);
     }
 
     //Compiles inside of the RunOpMode TeleOp

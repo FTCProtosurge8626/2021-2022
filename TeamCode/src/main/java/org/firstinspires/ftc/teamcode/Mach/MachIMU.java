@@ -49,8 +49,8 @@ import java.util.Locale;
  * Right stick: rotational movement
  * */
 
-@TeleOp(name = "Mach IMU", group = "Sensor")
-public class IMUTeleOp extends MachHardware {
+@TeleOp(name = "Mach IMU", group = "TeleOp")
+public class MachIMU extends MachHardware {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------
@@ -68,12 +68,12 @@ public class IMUTeleOp extends MachHardware {
     //BL, BR, FL, FR
     double[] power;
 
-    /*
-    private double targetX;
-    private double targetY;
-    private double targetRX;
-    private double targetRY;
-    */
+	/*
+	private double targetX;
+	private double targetY;
+	private double targetRX;
+	private double targetRY;
+	*/
 
     private double cushion;
 
@@ -164,67 +164,68 @@ public class IMUTeleOp extends MachHardware {
             } else if (!gamepad1.a && gamepad1.b) {
                 driveMode = Swap.TANK;
             } /*else if (gamepad1.x) {
-                driveMode = Swap.HEADLESS; //Will be used later for headless mode
-            }*/
+				driveMode = Swap.HEADLESS; //Will be used later for headless mode
+			}*/
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
             double total;
+            double total2;
             if (driveMode == Swap.HEADLESS) {
-                /*
-                targetX = gamepad1.left_stick_x;
-                targetY = gamepad1.left_stick_y;
-                targetRX = gamepad1.right_stick_x;
-                targetRY = gamepad1.right_stick_y;
-                double heading = getHeading();
-                double targetAngle = 0;
-                double motorX = 0;
-                double motorY = 0;
+				/*
+				targetX = gamepad1.left_stick_x;
+				targetY = gamepad1.left_stick_y;
+				targetRX = gamepad1.right_stick_x;
+				targetRY = gamepad1.right_stick_y;
+				double heading = getHeading();
+				double targetAngle = 0;
+				double motorX = 0;
+				double motorY = 0;
 
-                double cd = cushion/180; //Cushion out of 1, instead of 180
+				double cd = cushion/180; //Cushion out of 1, instead of 180
 
-                //Create a, b, and c variables corresponding to the lengths of the triangle formed on the right stick
-                double a = Math.abs(targetRY);
-                double b = Math.abs(targetRX);
-                double c = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+				//Create a, b, and c variables corresponding to the lengths of the triangle formed on the right stick
+				double a = Math.abs(targetRY);
+				double b = Math.abs(targetRX);
+				double c = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
 
-                //Find the angle of the triangle
-                targetAngle = Math.acos((Math.pow(a,2)+Math.pow(b,2)-Math.pow(c,2))/2*a*b);
-                boolean doNothing = false;
+				//Find the angle of the triangle
+				targetAngle = Math.acos((Math.pow(a,2)+Math.pow(b,2)-Math.pow(c,2))/2*a*b);
+				boolean doNothing = false;
 
-                //Convert the angle from triangle form to usable input
-                if (targetRX > cd) {
-                    if (targetRY > cd) {
-                        targetAngle = newAngle(0,targetAngle);
-                    } else if (targetRY < -cd) {
-                        targetAngle = newAngle(180, -targetAngle);
-                    } else {
-                        targetAngle = -90;
-                    }
-                } else if (targetRX < -cd){
-                    if (targetRY > 0) {
-                        targetAngle = newAngle(0,-targetAngle);
-                    } else if (targetRY < -cd){
-                        targetAngle = newAngle(180,targetAngle);
-                    } else {
-                        targetAngle = 90;
-                    }
-                } else if (targetRY < -cd){
-                    targetAngle = -180;
-                } else if (targetRY > cd){
-                    targetAngle = 0;
-                } else {
-                    doNothing = true;
-                }
+				//Convert the angle from triangle form to usable input
+				if (targetRX > cd) {
+					if (targetRY > cd) {
+						targetAngle = newAngle(0,targetAngle);
+					} else if (targetRY < -cd) {
+						targetAngle = newAngle(180, -targetAngle);
+					} else {
+						targetAngle = -90;
+					}
+				} else if (targetRX < -cd){
+					if (targetRY > 0) {
+						targetAngle = newAngle(0,-targetAngle);
+					} else if (targetRY < -cd){
+						targetAngle = newAngle(180,targetAngle);
+					} else {
+						targetAngle = 90;
+					}
+				} else if (targetRY < -cd){
+					targetAngle = -180;
+				} else if (targetRY > cd){
+					targetAngle = 0;
+				} else {
+					doNothing = true;
+				}
 
-                //Turn that angle into motor power
-                if (!doNothing) {
-                    turnToAngle(targetAngle); //Motor powers for the angle are now stored in power[]
-                }
-                //Check latitudinal and longitudinal requirements to reach target location
+				//Turn that angle into motor power
+				if (!doNothing) {
+					turnToAngle(targetAngle); //Motor powers for the angle are now stored in power[]
+				}
+				//Check latitudinal and longitudinal requirements to reach target location
 
-                //Set motor power based on rotation and longitude/latitude requirements
-                 */
+				//Set motor power based on rotation and longitude/latitude requirements
+				 */
 
             } else if (driveMode == Swap.TANK) {
                 double leftForward = gamepad1.left_stick_y;
@@ -252,22 +253,34 @@ public class IMUTeleOp extends MachHardware {
                 double drive = gamepad1.left_stick_y; //Checks the left stick on the controller for vertical offset
                 double strafe = gamepad1.left_stick_x; //Checks the left stick on the controller for horizontal offset
                 double turn = gamepad1.right_stick_x; //Checks the right stick on the controller for horizontal offset
+
                 total =  Math.abs(drive) + Math.abs(strafe) + Math.abs(turn);
+
+                double drive2 = gamepad2.left_stick_y/4; //Checks the left stick on the controller for vertical offset
+                double turn2 = gamepad2.right_stick_x/4; //Checks the right stick on the controller for horizontal offset
+                total2 =  Math.abs(drive2) + Math.abs(turn2);
 
                 //This code is to ensure that no values would go over 1.0 or under -1.0, and to maintain aspect ratio so movement is not wonkified by large values
 
-                if (total > maxSpeed) {
+                if (total + total2 > maxSpeed) {
                     drive /= total;
+                    drive2 /= total;
                     strafe /= total;
                     turn /= total;
+                    turn2 /= total;
                 }
 
                 //Calculate required movement based on given inputs
-
+                /*
                 power[0]	= Range.clip(drive - strafe + turn, -maxSpeed, maxSpeed);
                 power[1]	= Range.clip(drive + strafe - turn, -maxSpeed, maxSpeed);
                 power[2]	= Range.clip(drive + strafe + turn, -maxSpeed, maxSpeed);
                 power[3]	= Range.clip(drive - strafe - turn, -maxSpeed, maxSpeed);
+                */
+                power[0]	= Range.clip((drive + drive2) - strafe + (turn + turn2), -maxSpeed, maxSpeed);
+                power[1]	= Range.clip((drive + drive2) + strafe - (turn + turn2), -maxSpeed, maxSpeed);
+                power[2]	= Range.clip((drive + drive2) + strafe + (turn + turn2), -maxSpeed, maxSpeed);
+                power[3]	= Range.clip((drive + drive2) - strafe - (turn + turn2), -maxSpeed, maxSpeed);
             }
         }
     }
@@ -282,8 +295,8 @@ public class IMUTeleOp extends MachHardware {
         } else {
             spin = 0;
         }
-        if (gamepad1.right_bumper && !gamepad1.left_bumper) {dp = 0.7;}
-        else if (gamepad1.left_bumper && !gamepad1.right_bumper) {dp = -0.7;}
+        if (gamepad1.right_bumper && !gamepad1.left_bumper) {dp = .9;}
+        else if (gamepad1.left_bumper && !gamepad1.right_bumper) {dp = -.9;}
         else {dp = 0;}
     }
 
@@ -390,13 +403,13 @@ public class IMUTeleOp extends MachHardware {
         main = newAngle(main, 0);
         target = newAngle(target, 0);
         double distance = target - main;
-        if (Math.abs(distance) > 180) {
-            if (distance > 0) {
-                distance -= 360;
-            } else {
-                distance += 360;
-            }
-        }
+		if (Math.abs(distance) > 180) {
+			if (distance > 0) {
+				distance -= 360;
+			} else {
+				distance += 360;
+			}
+		}
         distance = newAngle(distance, 0);
         return distance;
     }
@@ -404,19 +417,21 @@ public class IMUTeleOp extends MachHardware {
     //This method takes any angle and converts it to an angle between -180 and 179.9... (inclusive) after adding an offset
     public double newAngle(double angle, double offset) {
         double newAngle = angle + offset;
-        int i = 0;
+        int i = 0;/*
         while ((newAngle < -180 || newAngle >= 180) && !isStopRequested()) {
             if (newAngle < -180) {
                 newAngle += 360;
             } else if (newAngle >= 180) {
                 newAngle -= 360;
             }
+            distance += 360;
+            if(distance>360)distance -= 360;
             i++;
             if (i > 25) {
                 telemetry.addLine("LOOP BROKEN, ERROR AT " + (angle + offset));
                 break;
             }
-        }
+        }*/
         return newAngle;
     }
 
@@ -562,5 +577,3 @@ public class IMUTeleOp extends MachHardware {
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
     }
 }
-
-

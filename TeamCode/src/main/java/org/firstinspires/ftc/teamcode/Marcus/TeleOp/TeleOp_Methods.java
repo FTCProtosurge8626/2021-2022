@@ -36,7 +36,7 @@ public class TeleOp_Methods extends Main_Hardware {
             horizontal /= maxPower;
             rotational /= maxPower;
         }
-/*
+
         if(rotational != 0) {
             inTurn = true;
         } else {
@@ -49,12 +49,12 @@ public class TeleOp_Methods extends Main_Hardware {
                 rotational = IMU_Hardware_1.error();
             }
         }
-*/
+
         switch(driveMode) {
             case POV:
-                powers[0] = Range.clip(forward - horizontal - rotational, -range, range);
-                powers[1] = Range.clip(forward + horizontal - rotational, -range, range);
-                powers[2] = Range.clip(forward - horizontal - rotational, -range, range);
+                powers[0] = Range.clip(forward + horizontal + rotational, -range, range);
+                powers[1] = Range.clip(forward - horizontal - rotational, -range, range);
+                powers[2] = Range.clip(forward - horizontal + rotational, -range, range);
                 powers[3] = Range.clip(forward + horizontal - rotational, -range, range);
                 break;
             case Tank:
@@ -90,7 +90,7 @@ public class TeleOp_Methods extends Main_Hardware {
 
     public static void moveCompass(double dir, boolean[] direction) {
         pointCompass(direction);
-        IMU_Hardware_1.target = dir;
+        //IMU_Hardware_1.target = dir;
     }
 
     public static void pointCompass(boolean[] direction){
@@ -113,37 +113,19 @@ public class TeleOp_Methods extends Main_Hardware {
     public static void intake(boolean[] intake, double[] horizontal, double vertical){
         double[] powers = new double[3];
 
-        powers[0] = Converter.toInt(intake[1]) + -Converter.toInt(intake[0]);
-        powers[1] = -vertical;
+        powers[0] = Converter.toInt(intake[0]) + -Converter.toInt(intake[1]);
+        powers[1] = vertical -0.1;
         powers[2] = horizontal[0] - horizontal[1];
 
-        /*
-        if(horizontal[0] > 0) powers[1] = 1;
-        else if(horizontal[1] > 0) powers[1] = -1;
-        else powers[1] = 0;
-
-        if(vertical > 0) powers[2] = 1;
-        else if(vertical < 0) powers[2] = -1;
-        else powers[2] = 0;
-        */
         Motor_Hardware_1.setPowers(Motor_Hardware_1.intake, powers);
     }
 
     public static void moveCarousel(boolean right, boolean left){
         double power;
-        if(right) power = 1;
-        else if(left) power = -1;
+        if(right) power = .85;
+        else if(left) power = -.85;
         else power = 0;
 
-        /*
-        if(horizontal[0] > 0) powers[1] = 1;
-        else if(horizontal[1] > 0) powers[1] = -1;
-        else powers[1] = 0;
-
-        if(vertical > 0) powers[2] = 1;
-        else if(vertical < 0) powers[2] = -1;
-        else powers[2] = 0;
-        */
         Motor_Hardware_1.setPowers(Motor_Hardware_1.carousel, power);
     }
 
