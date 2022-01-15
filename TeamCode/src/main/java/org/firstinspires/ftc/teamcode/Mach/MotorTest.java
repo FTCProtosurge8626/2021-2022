@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Mach;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @Autonomous(name="Motor Test", group="Autonomous")
 public class MotorTest extends MachHardware {
     @Override

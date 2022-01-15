@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Basic;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Autonomous(group = "Autonomous", name = "Autonomous: DepotBackward")
+@Disabled
+@Autonomous(group = "Autonomous", name = "Autonomous: DriveBackward")
 public class BasicAutonomousBackward extends BasicHardware{
 
     // todo: write your code here

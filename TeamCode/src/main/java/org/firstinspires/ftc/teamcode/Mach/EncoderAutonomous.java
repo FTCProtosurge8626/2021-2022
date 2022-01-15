@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Mach;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@Disabled
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 public class EncoderAutonomous extends MachHardware {
 
