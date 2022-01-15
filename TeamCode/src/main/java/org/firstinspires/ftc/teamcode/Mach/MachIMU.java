@@ -108,7 +108,7 @@ public class MachIMU extends MachHardware {
                 "DPad: \n" +
                 "Turn to angle (0 set on init) \n\n" +
                 "Start for additional help");
-        telemetry.update();
+        //telemetry.update();
 
         // Set up our telemetry dashboard
         composeTelemetry();
@@ -417,21 +417,19 @@ public class MachIMU extends MachHardware {
     //This method takes any angle and converts it to an angle between -180 and 179.9... (inclusive) after adding an offset
     public double newAngle(double angle, double offset) {
         double newAngle = angle + offset;
-        int i = 0;/*
+        int i = 0;
         while ((newAngle < -180 || newAngle >= 180) && !isStopRequested()) {
             if (newAngle < -180) {
                 newAngle += 360;
             } else if (newAngle >= 180) {
                 newAngle -= 360;
-            }
-            distance += 360;
-            if(distance>360)distance -= 360;
+            };
             i++;
             if (i > 25) {
                 telemetry.addLine("LOOP BROKEN, ERROR AT " + (angle + offset));
                 break;
             }
-        }*/
+        }
         return newAngle;
     }
 

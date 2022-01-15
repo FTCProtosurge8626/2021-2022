@@ -94,13 +94,15 @@ public class Controller_1 extends LinearOpMode_Handler {
             }
         }
     }
+
     //An easier way to reference the toEvent Method for controller inputs
-    public static boolean press(boolean input) {
-        return Converter.toEvent(input);
+    public static boolean press(boolean input, int ID) {
+        return Converter.toEvent(input, ID);
     }
+
     //An easier way to reference the toEvent Method for controller inputs
-    public static boolean press(double input, double range) {
-        return Converter.toEvent(input, converter, range);
+    public static boolean press(double input, int ID) {
+        return Converter.toEvent(Converter.toBoolean(input, 1), ID);
     }
 
     //Persists the input for a set amount of time

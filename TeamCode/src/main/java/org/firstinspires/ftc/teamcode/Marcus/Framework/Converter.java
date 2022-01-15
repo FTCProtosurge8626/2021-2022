@@ -13,42 +13,28 @@ public class Converter extends LinearOpMode_Handler {
         return value > range;
     }
 
+    //Converts any number to boolean
+    public static boolean toBoolean(boolean[] value) {
+        boolean finalValue = true;
+        for(boolean b : value){
+            finalValue &= b;
+        }
+        return finalValue;
+    }
+
     //Converts boolean to int
     public static int toInt(boolean input) {
         return input ? 1 : 0;
     }
 
-    //Used inside the toEvent and checks if the inputs have occurred. Acts as a Event.
-    private boolean inputEvent = false;
-
+    public static boolean[] events = new boolean[1000];
     //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
-    public static boolean toEvent(boolean input, Converter instance) {
-        if(instance.inputEvent && input){
-            instance.inputEvent = false;
+    public static boolean toEvent(boolean input, int ID) {
+        if(input && events[ID]) {
+            events[ID] = false;
             return true;
-        } else if(!input){
-            instance.inputEvent = true;
         }
-        return false;
-    }
-
-    //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
-    public static boolean toEvent(double input, Converter instance, double range) {
-        if(instance.inputEvent && toBoolean(input, range)){
-            instance.inputEvent = false;
-            return true;
-        } else if(!toBoolean(input, range)){
-            instance.inputEvent = true;
-        }
-        return false;
-    }
-
-    private static ElapsedTime inputTime = new ElapsedTime();
-    //Converts the value to an Event allowing for the boolean to occur true only once when it is set to true.
-    public static boolean toEvent(boolean input) {
-        if(input && inputTime.seconds() <= 0.5){
-            return true;
-        } else inputTime.reset();
+        if(!input) events[ID] = true;
         return false;
     }
 

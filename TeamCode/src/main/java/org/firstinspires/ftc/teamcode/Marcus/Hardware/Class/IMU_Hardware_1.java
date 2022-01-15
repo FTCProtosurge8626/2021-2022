@@ -21,7 +21,7 @@ public class IMU_Hardware_1 {
 	public static double target;
 
 	//Creates a variable for the target heading
-	public static double range = 30;
+	public static double range = 5;
 
 	//Creates 2 variables that contain the maximum and minimum range the heading will be between
 	private static final double min = 0;
@@ -75,7 +75,7 @@ public class IMU_Hardware_1 {
 	//Gets the IMU's current orientation
 	public static double heading() {
 		angles = imu.getAngularOrientation();
-		return angles.firstAngle;
+		return Converter.inverse(angles.firstAngle,-180,180);
 		/*
 		if(IMU_Hardware_1.angles.firstAngle < 0){
 			return Converter.inverse(IMU_Hardware_1.angles.firstAngle + 360, 0, 360);
@@ -103,7 +103,16 @@ public class IMU_Hardware_1 {
 
 	//Gets the IMU's distance to target heading
 	public static double error() {
-		return Converter.forceNormalize((heading() - target()) * scale,-1,1);
+		//return Converter.forceNormalize((heading() - target()) * scale,-1,1);
+		double distance = target() - heading();
+		if (Math.abs(distance) > 180) {
+			if (distance > 0) {
+				distance -= 360;
+			} else {
+				distance += 360;
+			}
+		}
+		return distance;
 		/*
 		double distance = heading() - target;
 		if(Math.abs(distance) > 180){

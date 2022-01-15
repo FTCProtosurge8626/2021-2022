@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Basic;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+@Disabled
 @TeleOp(name="Basic: TeleOpMode", group="TeleOp")//Adds the Basic TeleOpMode to the TeleOp group
 public class BasicTeleOp extends LinearOpMode {
 

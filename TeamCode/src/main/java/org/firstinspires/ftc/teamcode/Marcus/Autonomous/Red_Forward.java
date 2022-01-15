@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.Marcus.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Class.Motor_Hardware_1;
 import org.firstinspires.ftc.teamcode.Marcus.Hardware.Main_Hardware;
 
-@Autonomous(name = "Backward_Red", group = "Red")
-public class Backward_Red extends Main_Hardware {
+@Autonomous(name = "Red-Forward", group = "Red")
+public class Red_Forward extends Main_Hardware {
 
     @Override
     public void runOpMode() {
@@ -15,15 +14,8 @@ public class Backward_Red extends Main_Hardware {
         Autonomous_Methods Methods = new Autonomous_Methods();
 
         waitForStart();
-
-        Methods.strafe(-.75,500);
-        Methods.turn(-1,750);
-
-        Methods.strafe(-1,650);
-        Methods.move(-.25,1000);
-        Methods.duck(-1,3000);
-
-        Methods.move(1,185);
-        Methods.strafe(-1,50);
+        Methods.strafe(-.75,650);
+        Methods.turn(.75,200);
+        Methods.move(1,750);
     }
 }
