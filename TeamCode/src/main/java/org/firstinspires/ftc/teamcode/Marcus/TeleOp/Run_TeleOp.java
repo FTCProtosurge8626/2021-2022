@@ -31,7 +31,7 @@ public class Run_TeleOp extends Main_Hardware {
             telemetry.addData("InTurn", TelOp.inTurn);
             telemetry.update();
 
-            TelOp.move(Gpad1.sticks[0][0],Gpad1.sticks[0][1],Gpad1.sticks[1][1], Gpad1.hatSticks);
+            TelOp.move(Gpad1.sticks[0][0],Gpad1.sticks[0][1],Gpad1.sticks[1][1], Gpad1.hatSticks, this);
             TelOp.intake(Gpad2.buttons,Gpad2.sticks[1][0]);
             TelOp.moveCarousel(Gpad1.bumpers[0], Gpad1.bumpers[1]);
         }

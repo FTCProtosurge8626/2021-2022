@@ -22,12 +22,12 @@ public class TeleOp_Methods extends Main_Hardware {
         }
     }
 
-    public void move(double forward, double horizontal, double rotational, boolean[] hatSticks) {
+    public void move(double forward, double horizontal, double rotational, boolean[] hatSticks, LinearOpMode instance) {
         double[] powers = new double[4];
 
-        forward += powerGain;
-        horizontal += powerGain;
-        rotational += powerGain;
+        forward *= powerGain;
+        horizontal *= powerGain;
+        rotational *= powerGain;
 
         double totalPower = Math.abs(forward) + Math.abs(horizontal) + Math.abs(rotational);
 
@@ -42,7 +42,7 @@ public class TeleOp_Methods extends Main_Hardware {
 
         moveCompass(IMU_Hardware_1.target(), hatSticks);
 
-        while(!inTurn || Converter.toEvent(Converter.toBoolean(hatSticks),4) && !IMU_Hardware_1.inRange()) {
+        while(!inTurn || Converter.toEvent(Converter.toBoolean(hatSticks),4) && !IMU_Hardware_1.inRange() && !instance.isStopRequested()) {
             rotational = Range.clip(IMU_Hardware_1.error(),0,1);
         }
 

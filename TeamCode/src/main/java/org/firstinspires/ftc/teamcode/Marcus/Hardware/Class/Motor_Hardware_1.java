@@ -54,21 +54,21 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 
 	//Sets all motors names on the phone
 	public static void hardwareMap(DcMotor[] Motors, HardwareMap hardwareMap, String... names) {
-		for(int i = 0; i < names.length || i < Motors.length; i++){
+		for(int i = 0; i < names.length; i++){
 			Motors[i] = hardwareMap.get(DcMotor.class, names[i]);
 		}
 	}
 
 	//Sets all motors to a ZeropowersBehavior
 	public static void brakeBehaviour(DcMotor[] Motors, DcMotor.ZeroPowerBehavior... behaviours) {
-		for(int i = 0; i < behaviours.length || i < Motors.length; i++){
+		for(int i = 0; i < behaviours.length; i++){
 			Motors[i].setZeroPowerBehavior(behaviours[i]);
 		}
 	}
 
 	//Sets all motors encoders to a RunMode
 	public static void EncoderMode(DcMotor[] Motors, DcMotor.RunMode... runMode) {
-		for(int i = 0; i < runMode.length || i < Motors.length; i++){
+		for(int i = 0; i < runMode.length; i++){
 			Motors[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 			Motors[i].setMode(runMode[i]);
 		}
@@ -76,28 +76,28 @@ public class Motor_Hardware_1 extends LinearOpMode_Handler {
 
 	//Sets all motors direction to a direction
 	public static void setDirections(DcMotor[] Motors, DcMotorSimple.Direction... dir) {
-		for(int i = 0; i < dir.length || i < Motors.length; i++){
+		for(int i = 0; i < dir.length; i++){
 			Motors[i].setDirection(dir[i]);
 		}
 	}
 
 	//Sets all motors powers based on their index
 	public static void setPowers(DcMotor[] Motors, double... powers) {
-		for(int i = 0; i < powers.length || i < Motors.length; i++){
+		for(int i = 0; i < powers.length; i++){
 			Motors[i].setPower(powers[i]);
 		}
 	}
 
 	//Sets all motors powers based on the length of the array
 	public static void setPowers(DcMotor[] Motors, int[] indexes, double... powers) {
-		for(int i = 0; i < indexes.length || i < Motors.length; i++){
+		for(int i = 0; i < indexes.length; i++){
 			Motors[indexes[i]].setPower(powers[i]);
 		}
 	}
 
 	//Sets all motors powers based on their index
 	public static void setTargetPosition(DcMotor[] Motors, int... powers) {
-		for(int i = 0; i < powers.length || i < Motors.length; i++){
+		for(int i = 0; i < powers.length; i++){
 			Motors[i].setTargetPosition(powers[i]);
 		}
 	}
